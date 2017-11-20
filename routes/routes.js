@@ -72,6 +72,12 @@ router.delete('/customers/:customernumber', function(req, res, next){
 
 router.put('/customers/:customernumber', function(req, res, next){
   console.log('put costumer');
+  var updatedCustomer = {};
+  for(var property in req.body){
+    newCustomer[property] = req.body[property];
+  }
+  updatedCustomer.customernumberint = parseInt(req.body.customernumber);
+
   Customer.update({customernumber: req.params.customernumber, $set:updatedCustomer}, function(err, result){
     if(err){
       res.json(err);

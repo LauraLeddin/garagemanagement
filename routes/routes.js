@@ -59,9 +59,20 @@ router.post('/customers', function(req, res, next){
   });
 });
 
-router.delete('/customers/:id', function(req, res, next){
+router.delete('/customers/:customernumber', function(req, res, next){
   console.log('delete customer');
-  Customer.remove({_id: req.params.id}, function(err, result){
+  Customer.remove({_id: req.params.customernumber}, function(err, result){
+    if(err){
+      res.json(err);
+    } else{
+      res.json(result);
+    }
+  });
+});
+
+router.put('/customers/:customernumber', function(req, res, next){
+  console.log('put costumer');
+  Customer.update({customernumber: req.params.customernumber, $set:updatedCustomer}, function(err, result){
     if(err){
       res.json(err);
     } else{

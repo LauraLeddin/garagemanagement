@@ -40,5 +40,20 @@ router.post('/sort', function(req, res, next){
 });
 
 router.post('/customers', function(req, res, next){
+  console.log('post customer');
+  var newCustomer = new Customer({});
+  for(var property in req.body){
+    newCustomer[property] = req.body[property];
+  }
+  newCustomer.customernumberint = parseInt(req.body.customernumber);
+
+  newCustomer.save(function(err, result){
+    if (err) throw err;
+    console.log('erfolgreich abgespeichert');
+  });
+});
+
+router.delete('/customers/:id', function(req, res, next){
+  console.log('delete customer');
 
 });

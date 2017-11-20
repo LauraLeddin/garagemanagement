@@ -34,8 +34,11 @@ router.post('/sort', function(req, res, next){
   .limit(sortlimit)
   .sort(sortby)
   .exec(function(err, result){
-    if (err) throw err;
-    res.json(result);
+    if(err){
+      res.json(err);
+    } else{
+      res.json(result);
+    }
   });
 });
 
@@ -48,12 +51,21 @@ router.post('/customers', function(req, res, next){
   newCustomer.customernumberint = parseInt(req.body.customernumber);
 
   newCustomer.save(function(err, result){
-    if (err) throw err;
-    console.log('erfolgreich abgespeichert');
+    if(err){
+      res.json(err);
+    } else{
+      res.json(result);
+    }
   });
 });
 
 router.delete('/customers/:id', function(req, res, next){
   console.log('delete customer');
-
+  Customer.remove({_id: req.params.id}, function(err, result){
+    if(err){
+      res.json(err);
+    } else{
+      res.json(result);
+    }
+  });
 });
